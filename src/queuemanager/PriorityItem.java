@@ -1,4 +1,4 @@
-package queuemanager;
+ package queuemanager;
 
 /**
  * A wrapper for bundling up an item and its integer priority.
