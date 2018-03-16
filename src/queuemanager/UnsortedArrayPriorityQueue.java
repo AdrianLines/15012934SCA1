@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -49,37 +50,91 @@ public UnsortedArrayPriorityQueue(int size) {
     @Override
     public T head() throws QueueUnderflowException {
         int highestFound=0;
+        int currentPri = 0;
+        Object currentTI= 0;
         int i = tailIndex;
-        String storageString;
-        int storageInt;
-        int x =333;
+  
+
      
   
-            while (i > 0) {
-                storage[i] = storage[i - 1];
-                storageString = storage[i].toString();
-               
-               x = Integer.parseInt(storageString);
-               
-                if(x > highestFound){
-                     System.out.println(highestFound+" wow");
-                     System.out.println(x);
-                }
+            while (i > -1) {
+               // storage[i] = storage[i - 1];
+                
+                currentPri = ((PriorityItem<T>) storage[i]).getPriority();
+               if (currentPri > highestFound){
+                   highestFound = currentPri;
+                   currentTI = storage[i];
+               }
+            
                     i = i - 1; 
             }
-         System.out.println(x);
-        System.out.println(highestFound);
+       
+        
         
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            return ((PriorityItem<T>) storage[0]).getItem();
+            
+            return ((PriorityItem<T>) currentTI).getItem();
         }
     }
 
     @Override
     public void remove() throws QueueUnderflowException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     int highestFound=0;
+        int currentPri = 0;
+        int shiftfromhere = 0;
+        int q=0;
+        int i = tailIndex;
+  
+        
+     
+  
+            while (i > -1) {
+             
+            // storage[i] = storage[i - 1];
+                
+                currentPri = ((PriorityItem<T>) storage[i]).getPriority();
+               if (currentPri > highestFound){
+                   highestFound = currentPri;
+                   q = i;
+                   
+               }
+               
+              // System.out.println(storage[q]);
+          // System.out.println(storage[q+1]);
+            
+       
+                    i = i - 1; 
+            }
+       
+        
+        
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            for (int j = 0; j < tailIndex; j++) {
+                if (j == q){
+               System.out.println("This is storage J "+storage[j]);
+               System.out.println("This is storage J+1 "+storage[j+1]);
+                
+                        shiftfromhere=1;}
+                if(shiftfromhere==1){
+                    storage[j] = storage[j+1];
+                    System.out.println("done stuff");
+                }
+            }
+            tailIndex = tailIndex - 1;
+        }
+
+//if (isEmpty()) {
+//            throw new QueueUnderflowException();
+//        } else {
+//            for (int j = q; j < tailIndex; j++) {
+//                storage[j] = storage[j + 1];
+//    }
+//            tailIndex = tailIndex - 1;
+//        }
     }
     
 // insert an item to the end of the array
@@ -88,7 +143,7 @@ public UnsortedArrayPriorityQueue(int size) {
         tailIndex = tailIndex + 1;
         if (tailIndex >= capacity) { 
          
-            tailIndex = tailIndex - 1;storage[1] = new PriorityItem<>(item, priority);
+            tailIndex = tailIndex - 1;//storage[1] = new PriorityItem<>(item, priority);
             throw new QueueOverflowException();
             
         
@@ -122,3 +177,5 @@ public boolean isEmpty()   { return tailIndex < 0; }
 
 
 }
+
+
