@@ -9,24 +9,60 @@ import java.util.*;
  *
  * @author 15012934
  */
-public class OrderedLinkedList {
-  
+public class OrderedLinkedList<T> implements PriorityQueue<T> {
+     LinkList theLinkedList = new LinkList();
         public int priority;
-        public String item;
+        public Object item;
+        public Object theitem;
         public OrderedLinkedList next;
         
-        public OrderedLinkedList(String item, int priority){
+        public OrderedLinkedList(Object item, int priority){
             this.priority = priority;
             this.item = item;
         }
+
+    OrderedLinkedList() {
+      
+         
+         
+    }
     
         public void display(){
             System.out.println(item + ": " + priority);
         }
         
         public String toString(){
-          return item;  
+          return (String) item;  
         }
+
+    @Override
+    public void add(Object item, int priority) throws QueueOverflowException {
+        
+   
+        
+        theLinkedList.insertFirstLink(item,priority);
+        theLinkedList.display();
+        
+    }
+
+    @Override
+    public T head() throws QueueUnderflowException {
+        theLinkedList.display();
+        return (T) theLinkedList.firstLink;
+    }
+
+    @Override
+    public void remove() throws QueueUnderflowException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+        
+        
+       
         
         
 class LinkList{
@@ -36,11 +72,12 @@ class LinkList{
         firstLink = null;
         
     }
+    
     public boolean isEmpty(){
         return(firstLink == null);
     }
     
-    public void insertFirstLink(String item, int priority){
+    public void insertFirstLink(Object item, int priority){
         OrderedLinkedList newLink = new OrderedLinkedList(item, priority);
         
         newLink.next = firstLink;
@@ -82,6 +119,27 @@ class LinkList{
             System.out.println("Empty List");
         }
         return theLink;
+    }
+    public OrderedLinkedList removeLink(String item){
+        OrderedLinkedList currentLink = firstLink;
+        OrderedLinkedList previousLink = firstLink;
+        
+        
+        while(currentLink.item != item){
+            if(currentLink.next == null){
+                return null;
+            }else{
+                previousLink = currentLink;
+                currentLink = currentLink.next;
+            }
+        }
+        if(currentLink == firstLink){
+            firstLink = firstLink.next;
+            
+        }else{
+            previousLink.next = currentLink.next;
+        }
+        return currentLink;
     }
 }
         
