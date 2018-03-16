@@ -13,6 +13,7 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
      LinkList theLinkedList = new LinkList();
         public int priority;
         public Object item;
+        public String itemString;
         public Object theitem;
         public OrderedLinkedList next;
         
@@ -32,11 +33,12 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
         }
         
         public String toString(){
-          return (String) item;  
+            String itemString = String.valueOf(item);
+          return itemString;  
         }
 
     @Override
-    public void add(Object item, int priority) throws QueueOverflowException {
+    public void add(T item, int priority) throws QueueOverflowException {
         
    
         
