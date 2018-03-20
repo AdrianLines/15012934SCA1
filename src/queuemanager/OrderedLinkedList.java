@@ -12,12 +12,12 @@ import java.util.*;
 public class OrderedLinkedList<T> implements PriorityQueue<T> {
      LinkList theLinkedList = new LinkList();
         public int priority;
-        public Object item;
+        public T item;
         public String itemString;
-        public Object theitem;
+
         public OrderedLinkedList next;
         
-        public OrderedLinkedList(Object item, int priority){
+        public OrderedLinkedList(T item, int priority){
             this.priority = priority;
             this.item = item;
         }
@@ -30,6 +30,7 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
     
         public void display(){
             System.out.println(item + ": " + priority);
+            
         }
         
         public String toString(){
@@ -43,19 +44,21 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
    
         
         theLinkedList.insertFirstLink(item,priority);
-        theLinkedList.display();
+       
         
     }
 
     @Override
     public T head() throws QueueUnderflowException {
-        theLinkedList.display();
-        return (T) theLinkedList.firstLink;
+     
+        return  theLinkedList.find(item,priority);
+
     }
 
     @Override
     public void remove() throws QueueUnderflowException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        theLinkedList.removeLink();
+        theLinkedList.display();
     }
 
     @Override
@@ -69,7 +72,7 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
         
 class LinkList{
     public OrderedLinkedList firstLink;
-    
+     public Object PriorityItem = null;
     LinkList(){
         firstLink = null;
         
@@ -79,15 +82,28 @@ class LinkList{
         return(firstLink == null);
     }
     
-    public void insertFirstLink(Object item, int priority){
+    public void insertFirstLink(T item, int priority){
         OrderedLinkedList newLink = new OrderedLinkedList(item, priority);
-        
-        newLink.next = firstLink;
+       
+       newLink.next = firstLink;
         firstLink = newLink;
-    }
-    
+       
+     
+              
+        
+  
+        
+    } 
+        
+   
     public OrderedLinkedList removeFirst(){
         OrderedLinkedList linkReference = firstLink;
+        
+        
+    
+        
+        
+        
                 if(!isEmpty()){
         firstLink = firstLink.next;
     }else{
@@ -97,51 +113,94 @@ class LinkList{
                 return linkReference;
     }
     
+     
+    
     public void display(){
         OrderedLinkedList theLink = firstLink;
         while(theLink != null){
-            theLink.display();
+            System.out.println("this Link: " + theLink +" "+theLink.priority);
             System.out.println("next Link: " + theLink.next);
             theLink = theLink.next;
             System.out.println("");
         }
     }
-    public OrderedLinkedList find(String item){
+    
+    
+    
+    public T find(T item, int priority){
         OrderedLinkedList theLink = firstLink;
+        OrderedLinkedList highLink = firstLink;
+        PriorityItem = new Object();
+        //Object PriorityItem = newPriorityItem<>(item, priority);
+        
+        
+        
+        highest();
         if(!isEmpty()){
-            while(theLink.item !=item){
-                if(theLink.next == null){
-                    return null;
-                   
-                } else {
+            while(theLink !=null){
+                if(theLink.priority == highest()){
+                  
+                     highLink = theLink;
+                } 
+                  
                     theLink = theLink.next;
-                }
+                
             }
         }else {
             System.out.println("Empty List");
         }
-        return theLink;
+       item = (T) highLink.item;
+        priority = highLink.priority;
+        
+       PriorityItem =  new PriorityItem<>(item, priority);
+        
+        return ((PriorityItem<T>) PriorityItem).getItem();
     }
-    public OrderedLinkedList removeLink(String item){
+    
+    
+    public int highest(){
+        int highest = 0;
+                OrderedLinkedList theLink = firstLink;
+        
+        while(theLink != null){
+           
+            if(theLink.priority > highest){
+                highest = theLink.priority;
+            }
+            theLink = theLink.next;
+            
+        }
+        return highest;
+        
+    }
+    public void removeLink(){
         OrderedLinkedList currentLink = firstLink;
         OrderedLinkedList previousLink = firstLink;
+        int finished = 0;
+        highest();
         
-        
-        while(currentLink.item != item){
-            if(currentLink.next == null){
-                return null;
-            }else{
+        while(currentLink != null){
+            
+                
+                if(currentLink.priority == highest()){
+                    previousLink.next= currentLink.next;
+                    finished = 1;
+                 
+                    display();
+                    
+                }
+                if(finished != 1){
                 previousLink = currentLink;
                 currentLink = currentLink.next;
-            }
+            
+               }
         }
+       
         if(currentLink == firstLink){
             firstLink = firstLink.next;
             
-        }else{
-            previousLink.next = currentLink.next;
         }
-        return currentLink;
+
     }
 }
         
