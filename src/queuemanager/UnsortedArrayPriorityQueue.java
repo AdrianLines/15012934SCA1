@@ -58,7 +58,7 @@ public UnsortedArrayPriorityQueue(int size) {
      
   
             while (i > -1) {
-               // storage[i] = storage[i - 1];
+    
                 
                 currentPri = ((PriorityItem<T>) storage[i]).getPriority();
                if (currentPri > highestFound){
@@ -92,7 +92,7 @@ public UnsortedArrayPriorityQueue(int size) {
   
             while (i > -1) {
              
-            // storage[i] = storage[i - 1];
+
                 
                 currentPri = ((PriorityItem<T>) storage[i]).getPriority();
                if (currentPri > highestFound){
@@ -101,8 +101,7 @@ public UnsortedArrayPriorityQueue(int size) {
                    
                }
                
-              // System.out.println(storage[q]);
-          // System.out.println(storage[q+1]);
+     
             
        
                     i = i - 1; 
@@ -127,14 +126,7 @@ public UnsortedArrayPriorityQueue(int size) {
             tailIndex = tailIndex - 1;
         }
 
-//if (isEmpty()) {
-//            throw new QueueUnderflowException();
-//        } else {
-//            for (int j = q; j < tailIndex; j++) {
-//                storage[j] = storage[j + 1];
-//    }
-//            tailIndex = tailIndex - 1;
-//        }
+
     }
     
 // insert an item to the end of the array
