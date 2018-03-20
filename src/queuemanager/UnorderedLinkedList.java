@@ -119,36 +119,37 @@ class LinkList{
         
         
         
-        highest();
+        highest(); //gets the int value for the highest priority link this is used in the remove function as well so
         if(!isEmpty()){
-            while(theLink !=null){
-                if(theLink.priority == highest()){
+            while(theLink !=null){ //while loop to look for the highest priority link
+                if(theLink.priority == highest()){ //if the priority of theLink is the same as the highetst priority in 
+                                                    //the queue it will set the "highLink" to be the link"
                   
                      highLink = theLink;
                 } 
                   
-                    theLink = theLink.next;
+                    theLink = theLink.next;//sets theLink to the next one so it can run through the 
                 
             }
         }else {
-            System.out.println("Empty List");
+            System.out.println("Empty List"); //this happens if empty
         }
        item = (T) highLink.item;
         priority = highLink.priority;
         
-       PriorityItem =  new PriorityItem<>(item, priority);
+       PriorityItem =  new PriorityItem<>(item, priority); //the PriorityItem is created from the highLink 
         
-        return ((PriorityItem<T>) PriorityItem).getItem();
+        return ((PriorityItem<T>) PriorityItem).getItem(); //returns the item from priorityItem
     }
     
     
-    public int highest(){
-        int highest = 0;
-                UnorderedLinkedList theLink = firstLink;
+    public int highest(){ //returns the priority of the highest value in the list
+        int highest = 0; //int used whenever a new highest number is found it puts it here
+                UnorderedLinkedList theLink = firstLink; //creates a new link
         
-        while(theLink != null){
+        while(theLink != null){ //while loop that checks each item in the list for the highest priority
            
-            if(theLink.priority > highest){
+            if(theLink.priority > highest){ 
                 highest = theLink.priority;
             }
             theLink = theLink.next;
@@ -157,21 +158,21 @@ class LinkList{
         return highest;
         
     }
-    public void removeLink(){
-        UnorderedLinkedList currentLink = firstLink;
-        UnorderedLinkedList previousLink = firstLink;
-        int finished = 0;
-        highest();
+    public void removeLink(){ //method that removes the highest priority link in the list
+        UnorderedLinkedList currentLink = firstLink; //creates a new link that is used to scroll through the list
+        UnorderedLinkedList previousLink = firstLink; //creates a new link that is set to be a link behind the current  link
+        int finished = 0; 
+        highest(); //finds highest priority
         
-        while(currentLink != null){
+        while(currentLink != null){//while loop that looks for the highest priority link and removes it
             
                 
-                if(currentLink.priority == highest()){
-                    previousLink.next= currentLink.next;
+                if(currentLink.priority == highest()){ //when the priority is the highest priority in the list
+                    previousLink.next= currentLink.next; //set the previouslink.next to the currentlink.next effectively removing the link
                     finished = 1;
                  
                     
-                    break;
+                    break; // finish the loop
                     
                 }
                 if(finished != 1){
@@ -181,7 +182,7 @@ class LinkList{
                }
         }
        
-        if(currentLink == firstLink){
+        if(currentLink == firstLink){ //if the link is the only link in the list then set the firstlink to be the second link
             firstLink = firstLink.next;
             
         }
