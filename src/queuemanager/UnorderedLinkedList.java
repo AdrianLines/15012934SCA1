@@ -57,13 +57,13 @@ public class UnorderedLinkedList<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException { //removes the item with the highest priority
-        theLinkedList.removeLink();
+        theLinkedList.removeLink(); //runs the removeLink method
         theLinkedList.display(); //outputs the current list because the "P" output doesn't work
     }
 
     @Override
-    public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isEmpty() { //checks if the q is empty
+        return theLinkedList.isEmpty();
     }
         
         
