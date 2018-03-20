@@ -37,9 +37,12 @@ public class QueueManager {
                 break;
             case "sl":
                 q = new OrderedLinkedList<>();
-                System.out.println("Using an order Linked List.");
+                System.out.println("Using an ordered Linked List.");
                 break;
             case "ul":
+                 q = new UnorderedLinkedList<>();
+                System.out.println("Using an unordered Linked List.");
+                break;
             case "h":
             default:
                 q = new SortedArrayPriorityQueue<>(8);
@@ -86,7 +89,7 @@ public class QueueManager {
 
                 /* Remove the item at the head of the queue */
                 try {
-                    String name = q.head().getName();
+                   String name = q.head().getName();
                     System.out.println("Removing " + name + " from the head of the queue");
                     q.remove();
                 } catch (QueueUnderflowException e) {
