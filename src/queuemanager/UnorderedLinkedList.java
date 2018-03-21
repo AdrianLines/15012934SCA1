@@ -42,23 +42,29 @@ public class UnorderedLinkedList<T> implements PriorityQueue<T> {
     public void add(T item, int priority) throws QueueOverflowException { //adds an item to the list (creates a link)
         
    
-        
+      
         theLinkedList.insertFirstLink(item,priority); //adds item to the front of the list
-       
+         
         
     }
 
     @Override
     public T head() throws QueueUnderflowException { //outputs the item with the highest priority
-     
-        return  theLinkedList.find(item,priority);
-
+         if (!theLinkedList.isEmpty()){
+                return  theLinkedList.find(item,priority);
+        }else{
+                throw new QueueUnderflowException();
+        }
     }
 
     @Override
     public void remove() throws QueueUnderflowException { //removes the item with the highest priority
+        if (!theLinkedList.isEmpty()){
         theLinkedList.removeLink(); //runs the removeLink method
         theLinkedList.display(); //outputs the current list because the "P" output doesn't work
+        }else{
+             throw new QueueUnderflowException();
+        }
     }
 
     @Override
@@ -115,7 +121,7 @@ class LinkList{
         UnorderedLinkedList theLink = firstLink; //creates a link 
         UnorderedLinkedList highLink = firstLink; //creates a link that is the link behind the other 
         PriorityItem = new Object();
-        //Object PriorityItem = newPriorityItem<>(item, priority);
+        
         
         
         
@@ -182,7 +188,7 @@ class LinkList{
                }
         }
        
-        if(currentLink == firstLink){ //if the link is the only link in the list then set the firstlink to be the second link
+        if(currentLink == firstLink){ //if the link is the only link in the list then set the firstlink to be the second link which is null
             firstLink = firstLink.next;
             
         }

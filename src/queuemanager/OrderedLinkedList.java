@@ -28,10 +28,10 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
          
     }
     
-        public void display(){
-            System.out.println(item + ": " + priority);
-            
-        }
+//        public void display(){
+//            System.out.println(item + ": " + priority);
+//            
+//        }
         
         public String toString(){
             String itemString = String.valueOf(item);
@@ -44,6 +44,7 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
    
         
         theLinkedList.insertFirstLink(item,priority);
+               theLinkedList.display();
        
         
     }
@@ -51,14 +52,23 @@ public class OrderedLinkedList<T> implements PriorityQueue<T> {
     @Override
     public T head() throws QueueUnderflowException {
      
-        return  theLinkedList.find(item,priority);
-
+        if (!theLinkedList.isEmpty()){
+    
+      return  theLinkedList.find(item,priority);
+        }else{
+             throw new QueueUnderflowException();
+        }
+        
     }
 
     @Override
-    public void remove() throws QueueUnderflowException {
-        theLinkedList.removeLink();
-        theLinkedList.display();
+    public void remove() throws QueueUnderflowException { //removes the item with the highest priority
+        if (!theLinkedList.isEmpty()){
+        theLinkedList.removeFirst(); //runs the removeLink method
+        theLinkedList.display(); //outputs the current list because the "P" output doesn't work
+        }else{
+             throw new QueueUnderflowException();
+        }
     }
 
     @Override
@@ -83,34 +93,65 @@ class LinkList{
     }
     
     public void insertFirstLink(T item, int priority){
-        OrderedLinkedList newLink = new OrderedLinkedList(item, priority);
-       
-       newLink.next = firstLink;
-        firstLink = newLink;
-       
-     
-              
+         OrderedLinkedList pointerLink = firstLink; //creates a new link that is used to scroll through the list
+         OrderedLinkedList newLink = new OrderedLinkedList(item, priority); //creates a new link that is set to be the newLink
+        OrderedLinkedList prevLink = firstLink; //creates a new link that is set to be a link behind the current  link
+
         
-  
+        while(pointerLink != null){//while loop that looks for the highest priority link and removes it
+            
+                
+                if(pointerLink.priority < newLink.priority){ //when the priority is the highest priority in the list
+                    
+      
+                 
+                 if(pointerLink == firstLink){
+                   //  System.out.println("FIRST LINK ADDED");
+                     
+                     newLink.next = firstLink;
+                     firstLink = newLink;
+                 }else{
+                     prevLink.next = newLink;
+                    newLink.next = pointerLink;
+                // System.out.println("link added break");
+                 }
+                    
+                    break; // finish the loop
+                    
+                }else if (pointerLink.next == null){
+                    pointerLink.next = newLink;
+                //     System.out.println("link added");
+             
+                    break;
+                    
+                    
+                }else{prevLink = pointerLink;
+                    pointerLink = pointerLink.next;
+                }
+                
+               
+                
+        }
+                if(firstLink==null){
+                    System.out.println("firstlink added");
+                
+                    firstLink = newLink;
+                }
+
         
     } 
         
    
-    public OrderedLinkedList removeFirst(){
+    public void removeFirst(){
         OrderedLinkedList linkReference = firstLink;
-        
-        
-    
-        
-        
-        
                 if(!isEmpty()){
+                    System.out.println("link removed");
         firstLink = firstLink.next;
     }else{
                     System.out.println("Empty List");
                 }
                 
-                return linkReference;
+               
     }
     
      
@@ -128,33 +169,19 @@ class LinkList{
     
     
     public T find(T item, int priority){
-        OrderedLinkedList theLink = firstLink;
-        OrderedLinkedList highLink = firstLink;
+        
         PriorityItem = new Object();
         //Object PriorityItem = newPriorityItem<>(item, priority);
         
         
         
-        highest();
-        if(!isEmpty()){
-            while(theLink !=null){
-                if(theLink.priority == highest()){
-                  
-                     highLink = theLink;
-                } 
-                  
-                    theLink = theLink.next;
-                
-            }
-        }else {
-            System.out.println("Empty List");
-        }
-       item = (T) highLink.item;
-        priority = highLink.priority;
+       
+       item = (T) firstLink.item;
+        priority = firstLink.priority;
         
-       PriorityItem =  new PriorityItem<>(item, priority);
+       PriorityItem =  new PriorityItem<>(item, priority); //the PriorityItem is created from the highLink 
         
-        return ((PriorityItem<T>) PriorityItem).getItem();
+        return ((PriorityItem<T>) PriorityItem).getItem(); //returns the item from priorityItem
     }
     
     
@@ -173,36 +200,5 @@ class LinkList{
         return highest;
         
     }
-    public void removeLink(){
-        OrderedLinkedList currentLink = firstLink;
-        OrderedLinkedList previousLink = firstLink;
-        int finished = 0;
-        highest();
-        
-        while(currentLink != null){
-            
-                
-                if(currentLink.priority == highest()){
-                    previousLink.next= currentLink.next;
-                    finished = 1;
-                 
-                    display();
-                    
-                }
-                if(finished != 1){
-                previousLink = currentLink;
-                currentLink = currentLink.next;
-            
-               }
-        }
-       
-        if(currentLink == firstLink){
-            firstLink = firstLink.next;
-            
-        }
-
-    }
-}
-        
-
+  }
 }
