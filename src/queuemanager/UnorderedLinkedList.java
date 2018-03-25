@@ -28,14 +28,12 @@ public class UnorderedLinkedList<T> implements PriorityQueue<T> {
          
     }
     
-        public void display(){ //displays an item from the list
-            System.out.println(item + ": " + priority);
-            
-        }
+    
         
         public String toString(){ //takes the object "item" and puts it to string
-            String itemString = String.valueOf(item);
-          return itemString;  
+            String result = theLinkedList.theString(); //sets theLinkedList through theString method to get the string for it
+           
+          return result;  //returns the string
         }
 
     @Override
@@ -43,7 +41,7 @@ public class UnorderedLinkedList<T> implements PriorityQueue<T> {
         
    
       
-        theLinkedList.insertFirstLink(item,priority); //adds item to the front of the list
+        theLinkedList.insertLink(item,priority); //adds item to the front of the list
          
         
     }
@@ -61,7 +59,7 @@ public class UnorderedLinkedList<T> implements PriorityQueue<T> {
     public void remove() throws QueueUnderflowException { //removes the item with the highest priority
         if (!theLinkedList.isEmpty()){
         theLinkedList.removeLink(); //runs the removeLink method
-        theLinkedList.display(); //outputs the current list because the "P" output doesn't work
+       
         }else{
              throw new QueueUnderflowException();
         }
@@ -84,11 +82,15 @@ class LinkList{
         
     }
     
+    
+    /*Checks if the list is empty*/
     public boolean isEmpty(){
         return(firstLink == null); //checks if the list is empty
     }
     
-    public void insertFirstLink(T item, int priority){ //inserts an item to the top of the list
+    
+    /*Inserts highest Priority Link*/
+    public void insertLink(T item, int priority){ //inserts an item to the top of the list
         UnorderedLinkedList newLink = new UnorderedLinkedList(item, priority); //creates the link 
        
        newLink.next = firstLink; //moves the initial first link to be the new links next link
@@ -102,10 +104,33 @@ class LinkList{
         
     } 
         
-
-     
     
-    public void display(){ //displays the contents of the linked list
+    /*Returns the string value for the list*/
+     public String theString(){ //displays the contents of the linked list
+        UnorderedLinkedList theLink = firstLink;
+        String result = "[";
+        Object item;
+     
+        String priority;
+        while(theLink != null){         //while loop that runs through the list outputting each item
+            if(theLink != firstLink){
+              result = result + ", ";  
+            }
+            priority = Integer.toString(theLink.priority); //sets priority value
+            item =   (Object)theLink.item; //sets the item value
+            
+            
+            result = result +item + ", " + priority; //adds the values to the string with a comma in between them
+            
+            theLink = theLink.next;
+            
+        }
+        result = result +"]"; //closes the string with a bracket
+        return result;
+    }
+    
+     /*Method used during testing to help display the list*/
+    public void display(){ //displays the contents of the linked list used for testing
         UnorderedLinkedList theLink = firstLink;
         while(theLink != null){         //while loop that runs through the list outputting each item
             System.out.println("this Link: " + theLink +" "+theLink.priority);
@@ -116,7 +141,7 @@ class LinkList{
     }
     
     
-    
+    /*Finds the highest priority item in the list*/
     public T find(T item, int priority){ //finds the highest priority
         UnorderedLinkedList theLink = firstLink; //creates a link 
         UnorderedLinkedList highLink = firstLink; //creates a link that is the link behind the other 
@@ -164,6 +189,11 @@ class LinkList{
         return highest;
         
     }
+    
+    
+    
+    
+       /* Removes the highest priority Link from the list*/
     public void removeLink(){ //method that removes the highest priority link in the list
         UnorderedLinkedList currentLink = firstLink; //creates a new link that is used to scroll through the list
         UnorderedLinkedList previousLink = firstLink; //creates a new link that is set to be a link behind the current  link
@@ -194,7 +224,7 @@ class LinkList{
         }
 
     }
-    }
-        
 
-}
+  
+
+}}

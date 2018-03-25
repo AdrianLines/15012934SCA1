@@ -46,18 +46,18 @@ public UnsortedArrayPriorityQueue(int size) {
 
 
 
-
+/*Returns the highest priority item in the queue*/
     @Override
     public T head() throws QueueUnderflowException {
-        int highestFound=0;
-        int currentPri = 0;
-        Object currentTI= 0;
+        int highestFound=0; // sets value for highest found priority
+        int currentPri = 0; //sets value for current priority
+        Object currentTI= 0; //creates an object for the currentitem if its the highest priority item
         int i = tailIndex;
   
 
      
   
-            while (i > -1) {
+            while (i > -1) { //while loop that changes the highestFound and currentTI values every time it finds a higher priority item
     
                 
                 currentPri = ((PriorityItem<T>) storage[i]).getPriority();
@@ -75,29 +75,31 @@ public UnsortedArrayPriorityQueue(int size) {
             throw new QueueUnderflowException();
         } else {
             
-            return ((PriorityItem<T>) currentTI).getItem();
+            return ((PriorityItem<T>) currentTI).getItem(); //returns the priority item for currentTI
         }
     }
 
+    
+    /*Removes the highest priority item from the list*/
     @Override
     public void remove() throws QueueUnderflowException {
      int highestFound=0;
         int currentPri = 0;
-        int shiftfromhere = 0;
-        int q=0;
+        int shiftfromhere = 0; //creates a value that the array needs to shift from when the item is removed
+        int q=0; //this is the value that will be removed
         int i = tailIndex;
   
         
      
   
-            while (i > -1) {
+            while (i > -1) { //while loop that finds the highest priority int
              
 
                 
-                currentPri = ((PriorityItem<T>) storage[i]).getPriority();
+                currentPri = ((PriorityItem<T>) storage[i]).getPriority(); 
                if (currentPri > highestFound){
                    highestFound = currentPri;
-                   q = i;
+                   q = i; 
                    
                }
                
@@ -112,15 +114,13 @@ public UnsortedArrayPriorityQueue(int size) {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            for (int j = 0; j < tailIndex; j++) {
+            for (int j = 0; j < tailIndex; j++) { //runs for loop that when the storage[] item is the correct one it removes it and loewrs the tail index by 1;
                 if (j == q){
-               System.out.println("This is storage J "+storage[j]);
-               System.out.println("This is storage J+1 "+storage[j+1]);
+      
                 
-                        shiftfromhere=1;}
-                if(shiftfromhere==1){
+                        
                     storage[j] = storage[j+1];
-                    System.out.println("done stuff");
+                    
                 }
             }
             tailIndex = tailIndex - 1;
@@ -129,13 +129,13 @@ public UnsortedArrayPriorityQueue(int size) {
 
     }
     
-// insert an item to the end of the array
+/*Inserts item to the top of the array*/
 @Override
     public void add(T item, int priority) throws QueueOverflowException {
         tailIndex = tailIndex + 1;
-        if (tailIndex >= capacity) { 
+        if (tailIndex >= capacity) { //checks if the queue is full or not
          
-            tailIndex = tailIndex - 1;//storage[1] = new PriorityItem<>(item, priority);
+            tailIndex = tailIndex - 1;
             throw new QueueOverflowException();
             
         
@@ -149,10 +149,12 @@ public UnsortedArrayPriorityQueue(int size) {
         }
     }
 
-// Is the queue empty?
+/* Checks if the queue is empty or not*/
     @Override
 public boolean isEmpty()   { return tailIndex < 0; }
 
+
+/*Turns the queue into a string*/
 @Override
     public String toString() {
         String result = "[";

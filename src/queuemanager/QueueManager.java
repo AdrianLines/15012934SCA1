@@ -45,7 +45,7 @@ public class QueueManager {
                 break;
             case "h":
                  q = new Heap<>();
-                System.out.println("Using an unordered Linked List.");
+                System.out.println("Using a Heap.");
                 break;
             default:
                 q = new SortedArrayPriorityQueue<>(8);
