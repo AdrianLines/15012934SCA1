@@ -60,7 +60,7 @@ public Heap(int size) {          // constructor
 
     @Override
     public T head() throws QueueUnderflowException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return (T)heapArray[0].itemS;
     }
 
     @Override
@@ -68,6 +68,12 @@ public Heap(int size) {          // constructor
         removeNode();
         
     }
+    
+      @Override
+    public boolean isEmpty()
+      { return currentSize==0; }
+    
+    
     
     public void removeNode()           // delete item with max key
       {                           // (assumes non-empty list)
@@ -105,21 +111,25 @@ public Heap(int size) {          // constructor
       }  // end trickleDown()
     
     
-    
+    public String toString(){
+        
+       
+    String output = displayHeap();
+        return output;
+    }
     
 
-    @Override
-    public boolean isEmpty()
-      { return currentSize==0; }
+  
    
     
     
- public void displayHeap()
-      {
+ public String displayHeap() {
+     String output;
+     output = "heapArray: ";
       System.out.print("heapArray: ");    // array format
       for(int m=0; m<currentSize; m++)
          if(heapArray[m] != null)
-            System.out.print( heapArray[m].getKey() + " ");
+            output = output+heapArray[m].getKey() + ". ";
          else
             System.out.print( "-- ");
       System.out.println();
@@ -154,6 +164,7 @@ public Heap(int size) {          // constructor
                System.out.print(' ');     // interim blanks
          }  // end for
       System.out.println("\n"+dots+dots); // dotted bottom line
+      return output;
       }  // end displayHeap()
 // -------------------------------------------------------------
    }  // end class Heap
