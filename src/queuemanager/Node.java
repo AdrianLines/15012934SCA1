@@ -9,28 +9,32 @@ package queuemanager;
  *
  * @author Adrian2018
  */
-class Node
+class Node //basic Node class used in the Heap class
    {
-   public Object itemS;
-   public int priority;           // data item (key)
-// -------------------------------------------------------------
-   public Node(Object item, int key)           // constructor
-      { 
-       itemS = item;
-       priority = key;
+   public Object itemS;             //item variable
+   public int priority;           // the priority value
+
+   public Node(Object item, int key){            // constructor
+      
+       itemS = item; //sets item
+       priority = key;//sets priority
    
    }
-// -------------------------------------------------------------
-   public int getKey()
-      { return priority; }
-// -------------------------------------------------------------
-   public void setKey(int id)
-      { priority = id; }
-   // -------------------------------------------------------------
-   public Object getItem()
-      { return itemS; }
-// -------------------------------------------------------------
-   public void setItem(Object nodeItem)
-      { itemS = nodeItem; }
-// -------------------------------------------------------------
-   }  // end class Node
+
+   public int getKey(){// returns the priority
+       return priority; 
+   }
+
+   public void setKey(int id){ //sets the priority
+   priority = id; 
+   }
+
+   public Object getItem(){ //returns item
+       return itemS;
+   }
+
+   public void setItem(Object nodeItem){ //sets item
+       itemS = nodeItem; 
+   }
+
+   } 
