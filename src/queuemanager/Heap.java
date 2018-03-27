@@ -38,7 +38,7 @@ public Heap(int size) {          // heap Constructor
             Node newNode = new Node(item, priority);//creates a new node with the item and priority given
             heapArray[currentSize] = newNode; //inserts the new node at the last position in the array
             shiftItemsUp(currentSize++);    //runs the shift items up method to find the correct location for the node
-            System.out.println("Node added to heap"); //tells you when the item has been added to the heap
+           
         }
     }
     
@@ -145,9 +145,9 @@ public Heap(int size) {          // heap Constructor
       for(int i=0; i<currentSize; i++) //for loop to create the string
          if(heapArray[i] != null){
              if(i == currentSize - 1){ //if the array item is the last item in the array it won't add a comma
-               output = output+heapArray[i].getItem() +" "+heapArray[i].getKey();  //adds item to string
+               output = output+"("+heapArray[i].getItem() +", "+heapArray[i].getKey()+")";  //adds item to string
              }else{
-                output = output+heapArray[i].getItem() +" "+heapArray[i].getKey() + ", "; //adds item to string  
+                output = output+"("+heapArray[i].getItem() +", "+heapArray[i].getKey()+")" + ", "; //adds item to string  
              }      
          }
            output = output + "]"; //closes the string with another bracket
@@ -160,8 +160,8 @@ public Heap(int size) {          // heap Constructor
       int itemsPerRow = 1; 
       int column = 0;
       int j = 0;                          // current item
-      String dots = "...............................";
-      System.out.println(dots+dots);      // dotted top line
+      String dottedLine = "...............................";
+      System.out.println(dottedLine+dottedLine);      // dotted top line
 
       while(currentSize > 0)              // runs this while the currentSize is more than 0 
          {
@@ -185,7 +185,7 @@ public Heap(int size) {          // heap Constructor
             for(int k=0; k<nBlanks*2-2; k++)
                System.out.print(' ');     // interim blanks
          }  // end for
-      System.out.println("\n"+dots+dots); // dotted bottom line
+      System.out.println("\n"+dottedLine+dottedLine); // dotted bottom line
       return output;
       } 
    } 

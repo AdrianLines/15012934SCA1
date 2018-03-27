@@ -46,6 +46,8 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         tailIndex = -1;
     }
 
+   
+
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {

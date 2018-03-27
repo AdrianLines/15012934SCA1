@@ -171,6 +171,7 @@ class LinkList{
             if(theLink != firstLink){
               result = result + ", ";  
             }
+            result = result + "(";
             priority = Integer.toString(theLink.priority); //sets priority value
             item =   (Object)theLink.item; //sets the item value
             
@@ -178,7 +179,7 @@ class LinkList{
             result = result +item + ", " + priority; //adds the values to the string with a comma in between them
             
             theLink = theLink.next;
-            
+            result = result + ")";
         }
         result = result +"]"; //closes the string with a bracket
         return result;
